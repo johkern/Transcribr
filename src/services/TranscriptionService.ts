@@ -40,41 +40,27 @@ export const TranscriptionService = {
     apiKey: string,
   ): Promise<TranscriptionResult> {
     try {
-      const genAI = new GoogleGenerativeAI(apiKey);
-      const model = genAI.getGenerativeModel({model: 'gemini-pro'});
-
-      // Read audio file as base64
-      const audioData = await RNFS.readFile(audioPath, 'base64');
+      // IMPORTANT LIMITATION: Google Gemini API does not yet support direct audio transcription
+      // For production use, you should integrate with:
+      // - Google Cloud Speech-to-Text API (https://cloud.google.com/speech-to-text)
+      // - OpenAI Whisper API (https://platform.openai.com/docs/guides/speech-to-text)
+      // - Azure Speech Services (https://azure.microsoft.com/en-us/services/cognitive-services/speech-to-text/)
+      // This implementation returns a demo message to demonstrate the app flow
       
-      // Note: Gemini API doesn't directly support audio transcription yet
-      // This is a placeholder implementation
-      // In production, you might want to use Google Speech-to-Text API or Whisper
-      const prompt = `This is a voice message. Please transcribe the audio content.`;
-
-      const result = await model.generateContent([
-        {
-          inlineData: {
-            data: audioData,
-            mimeType: 'audio/ogg',
-          },
-        },
-        prompt,
-      ]);
-
-      const response = await result.response;
-      const transcript = response.text();
-
+      console.warn('Audio transcription not yet implemented - returning demo transcript');
+      
       return {
-        transcript,
-        success: true,
+        transcript: '[Demo Mode] This is a placeholder transcription. To enable real transcription, please integrate with Google Speech-to-Text API or OpenAI Whisper API. See DEVELOPMENT.md for implementation details.',
+        success: false,
+        error: 'Audio transcription requires additional API integration. This is demo mode.',
       };
     } catch (error) {
       console.error('Gemini transcription error:', error);
       
-      // Fallback message for demo purposes
       return {
-        transcript: '[Transcription: This is a demo transcription. In production, this would use Google Speech-to-Text API or Whisper for actual audio transcription.]',
-        success: true,
+        transcript: '',
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error',
       };
     }
   },

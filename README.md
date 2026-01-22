@@ -5,12 +5,19 @@ A React Native mobile app to transcribe voice messages from messengers (WhatsApp
 ## Features
 
 - 📱 **Share Integration**: Forward voice messages from any messenger app directly to Transcribr
-- 🎤 **AI Transcription**: Automatically transcribe voice messages using Google Gemini API
-- 📝 **Smart Summarization**: Generate concise summaries of transcripts
+- 🎤 **AI Transcription**: Framework ready for transcription using Google Speech-to-Text or Whisper API
+- 📝 **Smart Summarization**: Generate concise summaries of transcripts using Google Gemini API
 - 📚 **Message Library**: Keep a history of all transcribed voice messages
 - ⚙️ **Flexible API Settings**: Configure your preferred API provider (Gemini, OpenAI, Whisper)
 - 🔐 **Secure Storage**: All data stored locally on your device
 - 🤖 **Android First**: Optimized for Android with iOS support planned
+
+⚠️ **Important Note**: The current implementation includes a demo transcription mode. For production use with real audio transcription, you need to integrate:
+- Google Cloud Speech-to-Text API, or
+- OpenAI Whisper API, or  
+- Azure Speech Services
+
+See `DEVELOPMENT.md` for integration instructions.
 
 ## Setup
 
